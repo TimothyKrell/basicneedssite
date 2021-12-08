@@ -7,7 +7,7 @@
     "ID": 1
   },
   "NFT_NAME": "Socks",
-  "SYMBOL": "GOSOCKS",
+  "SYMBOL": "SOCKS",
   "MAX_SUPPLY": 2500,
   "WEI_COST": 10000000000000000,
   "DISPLAY_COST": 0.01,
