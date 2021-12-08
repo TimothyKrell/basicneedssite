@@ -14,13 +14,9 @@ html {
 }
 
 body {
-  background: linear-gradient(
-      to top,
-      var(--theme-gradient),
-      var(--theme-gradient)
-    ),
-    url(https://picsum.photos/2048/1536?grayscale&random=1) no-repeat top center;
+  background: url('../images/socks_background.jpeg') no-repeat top center;
   background-repeat: no-repeat;
+  background-size: 150%;
   background-color: var(--theme-secondary);
   color: var(--text-primary);
   font-family: "Inter var", Inter, ui-sans-serif, system-ui, -apple-system,
@@ -72,30 +68,18 @@ a {
 }
 
 .person-image--1 {
-  background: linear-gradient(
-      to top,
-      var(--theme-gradient),
-      var(--theme-gradient)
-    ),
-    url(https://picsum.photos/300?grayscale&random=1) no-repeat top center;
+  background: url('../images/chelsea_profile.jpeg') no-repeat top center;
+  background-size: cover;
 }
 
 .person-image--2 {
-  background: linear-gradient(
-      to top,
-      var(--theme-gradient),
-      var(--theme-gradient)
-    ),
-    url(https://picsum.photos/300?grayscale&random=2) no-repeat top center;
+  background: url('../images/pandora_profile.jpeg') no-repeat top center;
+  background-size: cover;
 }
 
 .person-image--3 {
-  background: linear-gradient(
-      to top,
-      var(--theme-gradient),
-      var(--theme-gradient)
-    ),
-    url(https://picsum.photos/300?grayscale&random=3) no-repeat top center;
+  background: url('../images/ryan_profile.jpeg') no-repeat top center;
+  background-size: cover;
 }
 .h5,
 .font-weight-bold {
