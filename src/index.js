@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import App2 from "./App2";
+import AppHashLips from "./AppHashLips";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import "./styles/reset.css";
+// import "./styles/reset.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/styles.css";
 
 ReactDOM.render(
   <Provider store={store}>
-    {window.location.href.includes("test") ? <App /> : <App2 />}
+    {window.location.href.includes("test") ? <AppHashLips /> : <App />}
   </Provider>,
   document.getElementById("root")
 );

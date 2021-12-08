@@ -2,7 +2,7 @@
   "name": "BasicNeeds.help",
   "version": "1.0.0",
   "description": "BasicNeeds site",
-  "homepage": "https://timothykrell.github.io",
+  "homepage": "https://basic-needs-org.github.io",
   "private": true,
   "dependencies": {
     "bootstrap": "^5.1.3",

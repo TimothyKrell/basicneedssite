@@ -94,6 +94,25 @@ export const StyledLink = styled.a`
   text-decoration: none;
 `;
 
+function MintCompleted({ config }) {
+  return (
+    <>
+      <s.TextTitle style={{ textAlign: "center", color: "var(--accent-text)" }}>
+        The sale has ended.
+      </s.TextTitle>
+      <s.TextDescription
+        style={{ textAlign: "center", color: "var(--accent-text)" }}
+      >
+        You can still find {config.NFT_NAME} on
+      </s.TextDescription>
+      <s.SpacerSmall />
+      <StyledLink target={"_blank"} href={config.MARKETPLACE_LINK}>
+        {config.MARKETPLACE}
+      </StyledLink>
+    </>
+  );
+}
+
 function App() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
@@ -195,217 +214,172 @@ function App() {
     getData();
   }, [blockchain.account]);
 
+  useEffect(() => {
+    dispatch(connect({ silent: true }));
+  }, []);
+
+  let walletNotConnected =
+    blockchain.account === "" || blockchain.smartContract === null;
+
+  let saleEnded = Number(data.totalSupply) >= CONFIG.MAX_SUPPLY;
+
   return (
-    <s.Screen>
-      <s.Container
-        flex={1}
-        ai={"center"}
-        style={{ padding: 24, backgroundColor: "var(--primary)" }}
-        image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
-      >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
-        <s.SpacerSmall />
-        <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
-          </s.Container>
-          <s.SpacerLarge />
-          <s.Container
-            flex={2}
-            jc={"center"}
-            ai={"center"}
-            style={{
-              backgroundColor: "var(--accent)",
-              padding: 24,
-              borderRadius: 24,
-              border: "4px dashed var(--secondary)",
-              boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
-            }}
-          >
-            <s.TextTitle
-              style={{
-                textAlign: "center",
-                fontSize: 50,
-                fontWeight: "bold",
-                color: "var(--accent-text)",
-              }}
-            >
-              {data.totalSupply} / {CONFIG.MAX_SUPPLY}
-            </s.TextTitle>
-            <s.TextDescription
-              style={{
-                textAlign: "center",
-                color: "var(--primary-text)",
-              }}
-            >
-              <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-              </StyledLink>
-            </s.TextDescription>
-            <s.SpacerSmall />
-            {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+    <>
+      <div className="wrap">
+        <nav className="p-3">
+          <div className="d-flex align-items-center">
+            <div></div>
+            <div className="d-flex" style={{flex: 1}}>
+              <div className="logo logo--header"></div>
+              <div className="h4">BasicNeeds</div>
+            </div>
+            {walletNotConnected ? (
               <>
-                <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                <button
+                  className="btn btn-secondary ml-auto"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(connect());
+                    getData();
+                  }}
                 >
-                  The sale has ended.
-                </s.TextTitle>
-                <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  You can still find {CONFIG.NFT_NAME} on
-                </s.TextDescription>
-                <s.SpacerSmall />
-                <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
-                  {CONFIG.MARKETPLACE}
-                </StyledLink>
+                  Connect Wallet
+                </button>
               </>
             ) : (
-              <>
-                <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
-                  {CONFIG.NETWORK.SYMBOL}.
-                </s.TextTitle>
-                <s.SpacerXSmall />
-                <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
-                >
-                  Excluding gas fees.
-                </s.TextDescription>
-                <s.SpacerSmall />
-                {blockchain.account === "" ||
-                (blockchain.smartContract === null && false) ? (
-                  <s.Container ai={"center"} jc={"center"}>
-                    <s.TextDescription
-                      style={{
-                        textAlign: "center",
-                        color: "var(--accent-text)",
-                      }}
-                    >
-                      Connect to the {CONFIG.NETWORK.NAME} network
-                    </s.TextDescription>
-                    <s.SpacerSmall />
-                    <StyledButton
-                      onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(connect());
-                        getData();
-                      }}
-                    >
-                      CONNECT
-                    </StyledButton>
-                    {blockchain.errorMsg !== "" ? (
-                      <>
-                        <s.SpacerSmall />
-                        <s.TextDescription
-                          style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
-                          }}
-                        >
-                          {blockchain.errorMsg}
-                        </s.TextDescription>
-                      </>
-                    ) : null}
-                  </s.Container>
-                ) : (
+              <button
+                className="btn btn-secondary ml-auto"
+                type="button"
+                disabled
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(connect());
+                  getData();
+                }}
+              >
+                {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
+              </button>
+            )}
+          </div>
+        </nav>
+        <main className="fluid-container">
+          <section className="section-1 p-3" style={{ marginBottom: "4rem" }}>
+            <div className="d-flex flex-column align-items-center">
+              <h2 className="p-3">A Better Way To Send Donations</h2>
+              <h6 className="font-weight-bold">
+                100% of Basic Needs: SOCKS! revenue goes directly to purchasing
+                Socks for shelters around the US.
+              </h6>
+              <p className="w-75 mb-5">
+                Each transaction is transparent, and all ETH may be found at
+                socks.basicneeds.eth where donation receipts will be saved as an
+                NFT [Collection Coming Soon] to showcase complete transparency
+                of your charitable spirit!
+              </p>
+
+              <div className="mint-card card d-flex flex-column align-items-center p-5">
+                {walletNotConnected ? (
                   <>
-                    <s.TextDescription
-                      style={{
-                        textAlign: "center",
-                        color: "var(--accent-text)",
-                      }}
-                    >
-                      {feedback}
-                    </s.TextDescription>
-                    <s.SpacerMedium />
-                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                      <StyledRoundButton
-                        style={{ lineHeight: 0.4 }}
-                        disabled={claimingNft ? 1 : 0}
+                    <div>
+                      <button
+                        className="btn btn-secondary ml-auto"
+                        type="button"
                         onClick={(e) => {
                           e.preventDefault();
-                          decrementMintAmount();
-                        }}
-                      >
-                        -
-                      </StyledRoundButton>
-                      <s.SpacerMedium />
-                      <s.TextDescription
-                        style={{
-                          textAlign: "center",
-                          color: "var(--accent-text)",
-                        }}
-                      >
-                        {mintAmount}
-                      </s.TextDescription>
-                      <s.SpacerMedium />
-                      <StyledRoundButton
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          incrementMintAmount();
-                        }}
-                      >
-                        +
-                      </StyledRoundButton>
-                    </s.Container>
-                    <s.SpacerSmall />
-                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                      <StyledButton
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          claimNFTs();
+                          dispatch(connect());
                           getData();
                         }}
                       >
-                        {claimingNft ? "BUSY" : "BUY"}
-                      </StyledButton>
-                    </s.Container>
+                        Connect Wallet
+                      </button>
+                    </div>
+                      {blockchain.errorMsg !== "" ? (
+                        <div>
+                          <s.SpacerSmall />
+                          <s.TextDescription
+                            style={{
+                              textAlign: "center",
+                              color: "red",
+                            }}
+                          >
+                            {blockchain.errorMsg}
+                          </s.TextDescription>
+                        </div>
+                      ) : null}
+                  </>
+                ) : saleEnded ? (
+                  <MintCompleted config={CONFIG} />
+                ) : (
+                  <>
+                    <div className="count h1 text-accent font-weight-bold">
+                      {data.totalSupply}/{CONFIG.MAX_SUPPLY}
+                    </div>
+                    <hr />
+                    <div className="price">
+                      <span className="font-weight-bold">
+                        {CONFIG.DISPLAY_COST} {CONFIG.NETWORK.SYMBOL}
+                      </span>{" "}
+                      / GOSOCK
+                    </div>
+                    <small className="font-italic mb-4">
+                      (GAS NOT INCLUDED)
+                    </small>
+                    <button
+                      type="button"
+                      className="btn btn-primary font-weight-bold"
+                      disabled={claimingNft ? 1 : 0}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        claimNFTs();
+                        getData();
+                      }}
+                    >
+                      {claimingNft ? "BUSY" : "MINT"}
+                    </button>
                   </>
                 )}
-              </>
-            )}
-            <s.SpacerMedium />
-          </s.Container>
-          <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg
-              alt={"example"}
-              src={"/config/images/example.gif"}
-              style={{ transform: "scaleX(-1)" }}
-            />
-          </s.Container>
-        </ResponsiveWrapper>
-        <s.SpacerMedium />
-        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
-          <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
-            }}
-          >
-            Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
-            Once you make the purchase, you cannot undo this action.
-          </s.TextDescription>
-          <s.SpacerSmall />
-          <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
-            }}
-          >
-            We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully mint your NFT. We recommend that you don't lower the
-            gas limit.
-          </s.TextDescription>
-        </s.Container>
-      </s.Container>
-    </s.Screen>
+              </div>
+            </div>
+          </section>
+          <section className="section-2 p-5">
+            <div className="rotated-square"></div>
+            <div className="d-flex flex-column align-items-center">
+              <h2>Meet the SOCKS! Team</h2>
+              <p className="mb-4">
+                SOCKS! was brought to you by these individuals of a larger
+                collaboration with <a href="basicneeds">Basic Needs</a>.
+              </p>
+              <div className="row">
+                <div className="col mb-5">
+                  <div className="person-image person-image--1 mb-3"></div>
+                  <div className="h5">Chelsea</div>
+                  <div className="text-accent">Artistic Director</div>
+                </div>
+                <div className="col mb-5">
+                  <div className="person-image person-image--2 mb-3"></div>
+                  <div className="h5">Pandora</div>
+                  <div className="text-accent">Web Designer</div>
+                </div>
+                <div className="col mb-5">
+                  <div className="person-image person-image--3 mb-3"></div>
+                  <div className="h5">Ryan</div>
+                  <div className="text-accent">Web3 Developer</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+      <footer>
+        <div className="d-flex flex-column align-items-center p-3">
+          <div className="d-flex justify-content-center">
+            <div className="logo"></div>
+            <div className="h6">BasicNeeds</div>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }
 
