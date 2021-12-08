@@ -320,7 +320,7 @@ function App() {
                       <span className="font-weight-bold">
                         {CONFIG.DISPLAY_COST} {CONFIG.NETWORK.SYMBOL}
                       </span>{" "}
-                      / GOSOCK
+                      / {CONFIG.SYMBOL}
                     </div>
                     <small className="font-italic mb-4">
                       (GAS NOT INCLUDED)
