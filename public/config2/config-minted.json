@@ -1,0 +1,18 @@
+{
+  "CONTRACT_ADDRESS": "0xdF4f6E39C6414d1190c63A79fd082f0B31a61750",
+  "SCAN_LINK": "https://goerli.etherscan.io/token/0xdf4f6e39c6414d1190c63a79fd082f0b31a61750",
+  "NETWORK": {
+    "NAME": "Goreli Test Network",
+    "SYMBOL": "ETH",
+    "ID": 5
+  },
+  "NFT_NAME": "Test Socks 1",
+  "SYMBOL": "GOSOCKS",
+  "MAX_SUPPLY": 25,
+  "WEI_COST": 10000000000000000,
+  "DISPLAY_COST": 0.01,
+  "GAS_LIMIT": 6000000,
+  "MARKETPLACE": "Opeansea",
+  "MARKETPLACE_LINK": "https://testnets.opensea.io/collection/test-socks-1",
+  "SHOW_BACKGROUND": true
+}

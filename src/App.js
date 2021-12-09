@@ -31,7 +31,7 @@ export const StyledButton = styled.button`
 export const StyledRoundButton = styled.button`
   padding: 10px;
   border-radius: 100%;
-  border: none;
+  border: 1px solid rgba(250, 250, 250, 0.3);
   background-color: var(--primary);
   padding: 10px;
   font-weight: bold;
@@ -43,10 +43,10 @@ export const StyledRoundButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 4px 0px -2px rgba(250, 250, 250, 0.3);
-  -webkit-box-shadow: 0px 4px 0px -2px rgba(250, 250, 250, 0.3);
-  -moz-box-shadow: 0px 4px 0px -2px rgba(250, 250, 250, 0.3);
+  padding-top: 8px;
+  padding-right: 10px;
   :active {
+    background-color: rgba(var(--text-accent), .4);
     box-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -325,6 +325,40 @@ function App() {
                     <small className="font-italic mb-4">
                       (GAS NOT INCLUDED)
                     </small>
+                    <s.Container ai={"center"} jc={"center"} fd={"row"} style={{marginBottom: '24px'}}>
+                      <StyledRoundButton
+                        style={{ lineHeight: 0.4 }}
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          decrementMintAmount();
+                        }}
+                      >
+                        -
+                      </StyledRoundButton>
+                      <s.SpacerMedium />
+                      <s.TextDescription
+                        style={{
+                          textAlign: "center",
+                          color: "var(--accent-text)",
+                          margin: 0,
+                          fontSize: '2em',
+                          minWidth: '1em'
+                        }}
+                      >
+                        {mintAmount}
+                      </s.TextDescription>
+                      <s.SpacerMedium />
+                      <StyledRoundButton
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          incrementMintAmount();
+                        }}
+                      >
+                        +
+                      </StyledRoundButton>
+                    </s.Container>
                     <button
                       type="button"
                       className="btn btn-primary font-weight-bold"
@@ -337,6 +371,15 @@ function App() {
                     >
                       {claimingNft ? "BUSY" : "MINT"}
                     </button>
+                    <s.TextDescription
+                      style={{
+                        textAlign: "center",
+                        color: "var(--accent-text)",
+                        marginTop: '24px'
+                      }}
+                    >
+                      {feedback}
+                    </s.TextDescription>
                   </>
                 )}
               </div>

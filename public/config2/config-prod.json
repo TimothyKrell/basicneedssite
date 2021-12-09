@@ -1,0 +1,18 @@
+{
+  "CONTRACT_ADDRESS": "0xf3511dced180f0e5a5155ccc5edabdfe1bc429c0",
+  "SCAN_LINK": "https://etherscan.io/token/0xf3511dced180f0e5a5155ccc5edabdfe1bc429c0",
+  "NETWORK": {
+    "NAME": "Ethereum Network",
+    "SYMBOL": "ETH",
+    "ID": 1
+  },
+  "NFT_NAME": "Socks",
+  "SYMBOL": "SOCKS",
+  "MAX_SUPPLY": 2500,
+  "WEI_COST": 10000000000000000,
+  "DISPLAY_COST": 0.01,
+  "GAS_LIMIT": 600000,
+  "MARKETPLACE": "Opeansea",
+  "MARKETPLACE_LINK": "https://testnets.opensea.io/collection/socks",
+  "SHOW_BACKGROUND": true
+}
